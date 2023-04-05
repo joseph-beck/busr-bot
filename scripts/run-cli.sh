@@ -1,0 +1,1 @@
+go run cmd/botcli/main.go
