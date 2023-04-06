@@ -16,7 +16,21 @@ type Driver struct {
 	Avg_quali  float64
 }
 
-func (d Driver) String() string {
+func (d Driver) Str() string {
+	return fmt.Sprintf(
+		"%d, %s, %s, %d, %d, %d, %d, %f, %f",
+		d.Id,
+		d.Name,
+		d.University,
+		d.Wins,
+		d.Poles,
+		d.Podiums,
+		d.Starts,
+		d.Points,
+		d.Avg_quali)
+}
+
+func (d Driver) SqlStr() string {
 	return fmt.Sprintf(
 		"%d, '%s', '%s', %d, %d, %d, %d, %f, %f",
 		d.Id,
@@ -30,7 +44,20 @@ func (d Driver) String() string {
 		d.Avg_quali)
 }
 
-func (d Driver) Output() string {
+func (d Driver) UpdateStr() string {
+	return fmt.Sprintf(
+		"name='%s', university='%s', wins=%d, poles=%d, podiums=%d, starts=%d, points=%f, avg_quali=%f",
+		d.Name,
+		d.University,
+		d.Wins,
+		d.Poles,
+		d.Podiums,
+		d.Starts,
+		d.Points,
+		d.Avg_quali)
+}
+
+func (d Driver) Out() string {
 	return fmt.Sprintf(
 		"Id: %d, Name: %s, University: %s, Wins: %d, Poles: %d, Podiums %d, Starts: %d, Points: %.2f, Average Qualifying: %.2f",
 		d.Id,

@@ -29,8 +29,27 @@ func AddDriver(driver f1.Driver) {
 	insert, err := conn.db.Query(fmt.Sprintf(
 		`insert into driver(id, name, university, wins, poles, podiums, starts, points, avg_quali) 
 		values(%s);`,
-		driver.String()))
+		driver.SqlStr()))
 
 	checkErr(err)
 	defer insert.Close()
+}
+
+func UpdateDriver(driver *f1.Driver) {
+	conn := Connect()
+	updates := driver.UpdateStr()
+
+	query := fmt.Sprintf(
+		"id='%d'",
+		driver.Id)
+
+	update, err := conn.db.Query(fmt.Sprintf(
+		`update driver
+		set %s
+		where %s;`,
+		updates,
+		query))
+
+	checkErr(err)
+	defer update.Close()
 }
