@@ -6,3 +6,12 @@ type Year struct {
 	Spring Season
 	Summer Season
 }
+
+func (y Year) ToString() string {
+	return ""
+}
+
+func (y Year) PrettyString() string {
+	return ""
+}
+
