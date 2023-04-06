@@ -7,11 +7,10 @@ type Year struct {
 	Summer Season
 }
 
-func (y Year) ToString() string {
+func (y Year) Str() string {
 	return ""
 }
 
-func (y Year) PrettyString() string {
+func (y Year) Out() string {
 	return ""
 }
-

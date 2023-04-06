@@ -9,14 +9,14 @@ type Season struct {
 	Races    []Race
 }
 
-func (s Season) String() string {
+func (s Season) Str() string {
 	return fmt.Sprintf(
 		"%s, %s",
 		s.Name,
 		s.Champion.Name)
 }
 
-func (s Season) RacesString() string {
+func (s Season) RacesStr() string {
 	output := ""
 
 	for _, race := range s.Races {

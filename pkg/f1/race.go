@@ -9,7 +9,7 @@ type Race struct {
 	Winner Driver
 }
 
-func (r Race) String() string {
+func (r Race) Str() string {
 	return fmt.Sprintf(
 		"%s, %d, %s",
 		r.Name,
