@@ -1,33 +1,45 @@
 package f1
 
 import (
-	"bot/pkg/university"
 	"fmt"
 )
 
 type Driver struct {
-	Id            int
-	Name          string
-	University    university.University
-	Wins          int
-	Poles         int
-	Podiums       int
-	Points        float32
-	Starts        int
-	Avg_quali     float32
-	Championships []Season
+	Id         int
+	Name       string
+	University string
+	Wins       int
+	Poles      int
+	Podiums    int
+	Starts     int
+	Points     float64
+	Avg_quali  float64
 }
 
-func (d Driver) ToString() string {
+func (d Driver) String() string {
 	return fmt.Sprintf(
-		"%d, %s, %s, %d, %d, %d, %f, %d, %f",
+		"%d, '%s', '%s', %d, %d, %d, %d, %f, %f",
 		d.Id,
 		d.Name,
-		d.University.ToString(),
+		d.University,
 		d.Wins,
 		d.Poles,
 		d.Podiums,
-		d.Points,
 		d.Starts,
+		d.Points,
+		d.Avg_quali)
+}
+
+func (d Driver) Output() string {
+	return fmt.Sprintf(
+		"Id: %d, Name: %s, University: %s, Wins: %d, Poles: %d, Podiums %d, Starts: %d, Points: %.2f, Average Qualifying: %.2f",
+		d.Id,
+		d.Name,
+		d.University,
+		d.Wins,
+		d.Poles,
+		d.Podiums,
+		d.Starts,
+		d.Points,
 		d.Avg_quali)
 }
