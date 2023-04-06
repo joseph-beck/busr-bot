@@ -1,12 +1,6 @@
 package commands
 
 import (
-	"fmt"
-	"time"
-
-	"bot/pkg/discord"
-	"bot/pkg/f1"
-
 	"github.com/bwmarrin/discordgo"
 )
 
