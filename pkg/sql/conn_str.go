@@ -1,9 +1,9 @@
-package database
+package sql
 
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"os"
 )
 
 type connData struct {
@@ -15,19 +15,15 @@ type connData struct {
 }
 
 func connStr() string {
-	content, err := ioutil.ReadFile("../../configs/database.json")
-	if err != nil {
-		fmt.Println("Error opening file: ", err)
-	}
+	content, err := os.ReadFile("database/config.json")
+	checkErrMsg(err, "Error opening file: ")
 
 	cd := connData{}
 	err = json.Unmarshal(content, &cd)
-	if err != nil {
-		fmt.Println("Error duing unmarshall() :", err)
-	}
+	checkErrMsg(err, "Error duing unmarshall(): ")
 
 	return fmt.Sprintf(
-		"%s:%s@(%s:%s)/%s",
+		"%s:%s@tcp(%s:%s)/%s",
 		cd.Username,
 		cd.Password,
 		cd.Address,

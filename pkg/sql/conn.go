@@ -1,4 +1,4 @@
-package database
+package sql
 
 import (
 	"sync"
@@ -27,12 +27,19 @@ func Connect() *Conn {
 	return instance
 }
 
+func Disconnect() {
+	if instance != nil {
+		closeDb(&instance.db)
+	}
+}
+
 func connDb() sqlx.DB {
 	db, err := sqlx.Open("mysql", connStr())
-	if err != nil {
-		panic(err.Error())
-	}
-	defer db.Close()
+	checkErr(err)
 
 	return *db
+}
+
+func closeDb(db *sqlx.DB) {
+	defer db.Close()
 }
