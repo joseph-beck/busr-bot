@@ -2,6 +2,7 @@ package sql
 
 import (
 	"bot/pkg/f1"
+	"bot/pkg/util"
 	"fmt"
 )
 
@@ -13,13 +14,13 @@ func GetDriver(id int) f1.Driver {
 		"select * from driver where id=%d;",
 		id))
 
-	checkErr(err)
+	util.CheckErr(err)
 	defer result.Close()
 
 	var driver f1.Driver
 	result.Next()
 	err = result.StructScan(&driver)
-	checkErr(err)
+	util.CheckErr(err)
 
 	return driver
 }
@@ -31,7 +32,7 @@ func AddDriver(driver f1.Driver) {
 		values(%s);`,
 		driver.SqlStr()))
 
-	checkErr(err)
+	util.CheckErr(err)
 	defer insert.Close()
 }
 
@@ -50,6 +51,6 @@ func UpdateDriver(driver *f1.Driver) {
 		updates,
 		query))
 
-	checkErr(err)
+	util.CheckErr(err)
 	defer update.Close()
 }

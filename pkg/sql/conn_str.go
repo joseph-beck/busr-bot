@@ -1,6 +1,7 @@
 package sql
 
 import (
+	"bot/pkg/util"
 	"encoding/json"
 	"fmt"
 	"os"
@@ -16,11 +17,11 @@ type connData struct {
 
 func connStr() string {
 	content, err := os.ReadFile("configs/database.json")
-	checkErrMsg(err, "Error opening file: ")
+	util.CheckErrMsg(err, "Error opening file: ")
 
 	cd := connData{}
 	err = json.Unmarshal(content, &cd)
-	checkErrMsg(err, "Error duing unmarshall(): ")
+	util.CheckErrMsg(err, "Error duing unmarshall(): ")
 
 	return fmt.Sprintf(
 		"%s:%s@tcp(%s:%s)/%s",
