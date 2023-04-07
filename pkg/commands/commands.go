@@ -21,12 +21,25 @@ var commands = []*discordgo.ApplicationCommand{
 			},
 		},
 	},
+	{
+		Name:        "wins",
+		Description: "Get another players wins.",
+		Options: []*discordgo.ApplicationCommandOption{
+			{
+				Type:        discordgo.ApplicationCommandOptionUser,
+				Name:        "driver",
+				Description: "Player who's wins you wish to retrieve.",
+				Required:    true,
+			},
+		},
+	},
 }
 
 var regCmds []*discordgo.ApplicationCommand
 
 var cmdHandlers = map[string]func(s *discordgo.Session, i *discordgo.InteractionCreate){
 	"stats": stats,
+	"wins":  wins,
 }
 
 var btnHandlers = map[string]func(s *discordgo.Session, i *discordgo.InteractionCreate){}

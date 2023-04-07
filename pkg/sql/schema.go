@@ -14,7 +14,7 @@ const driversTable string = `
 		starts int,
 		avg_quali float,
 		TODO: CHAMPIONSHIPS
-	)
+	);
 `
 
 const seasonTable string = `
@@ -23,7 +23,7 @@ const seasonTable string = `
 		name text not null,
 		champion int foreign key,
 		TODO: RACES
-	)
+	);
 `
 
 const raceTable string = `
@@ -32,5 +32,5 @@ const raceTable string = `
 		name text not null,
 		laps int not null,
 		winner int foreign key
-	)
+	);
 `

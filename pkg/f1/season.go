@@ -13,7 +13,8 @@ func (s Season) Str() string {
 	return fmt.Sprintf(
 		"%s, %s",
 		s.Name,
-		s.Champion.Name)
+		s.Champion.Name,
+	)
 }
 
 func (s Season) RacesStr() string {
@@ -22,7 +23,8 @@ func (s Season) RacesStr() string {
 	for _, race := range s.Races {
 		output += fmt.Sprintf(
 			"%s \n",
-			race.Name)
+			race.Name,
+		)
 	}
 
 	return output

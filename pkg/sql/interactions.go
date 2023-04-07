@@ -12,7 +12,8 @@ func GetDriver(id int) f1.Driver {
 	conn := Connect()
 	result, err := conn.db.Queryx(fmt.Sprintf(
 		"select * from driver where id=%d;",
-		id))
+		id,
+	))
 
 	util.CheckErr(err)
 	defer result.Close()
@@ -30,7 +31,8 @@ func AddDriver(driver f1.Driver) {
 	insert, err := conn.db.Query(fmt.Sprintf(
 		`insert into driver(id, name, university, wins, poles, podiums, starts, points, avg_quali) 
 		values(%s);`,
-		driver.SqlStr()))
+		driver.SqlStr(),
+	))
 
 	util.CheckErr(err)
 	defer insert.Close()
@@ -49,7 +51,8 @@ func UpdateDriver(driver *f1.Driver) {
 		set %s
 		where %s;`,
 		updates,
-		query))
+		query,
+	))
 
 	util.CheckErr(err)
 	defer update.Close()
@@ -65,4 +68,22 @@ func CheckDriver(id int) bool {
 	util.CheckErr(err)
 
 	return exists
+}
+
+func GetWins(id int) int {
+	conn := Connect()
+	result, err := conn.db.Query(fmt.Sprintf(
+		"select wins from driver where id=%d",
+		id,
+	))
+
+	util.CheckErr(err)
+	defer result.Close()
+
+	var wins int
+	result.Next()
+	err = result.Scan(&wins)
+	util.CheckErr(err)
+
+	return wins
 }

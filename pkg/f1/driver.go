@@ -27,7 +27,8 @@ func (d Driver) Str() string {
 		d.Podiums,
 		d.Starts,
 		d.Points,
-		d.Avg_quali)
+		d.Avg_quali,
+	)
 }
 
 func (d Driver) SqlStr() string {
@@ -41,7 +42,8 @@ func (d Driver) SqlStr() string {
 		d.Podiums,
 		d.Starts,
 		d.Points,
-		d.Avg_quali)
+		d.Avg_quali,
+	)
 }
 
 func (d Driver) UpdateStr() string {
@@ -54,13 +56,13 @@ func (d Driver) UpdateStr() string {
 		d.Podiums,
 		d.Starts,
 		d.Points,
-		d.Avg_quali)
+		d.Avg_quali,
+	)
 }
 
 func (d Driver) Out() string {
 	return fmt.Sprintf(
-		"Id: %d, Name: %s, University: %s, Wins: %d, Poles: %d, Podiums %d, Starts: %d, Points: %.2f, Average Qualifying: %.2f",
-		d.Id,
+		"``` Name: %s\n University: %s\n Wins: %d\n Poles: %d\n Podiums %d\n Starts: %d\n Points: %.2f\n Average Qualifying: %.2f```",
 		d.Name,
 		d.University,
 		d.Wins,
@@ -68,5 +70,6 @@ func (d Driver) Out() string {
 		d.Podiums,
 		d.Starts,
 		d.Points,
-		d.Avg_quali)
+		d.Avg_quali,
+	)
 }

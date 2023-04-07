@@ -29,5 +29,6 @@ func connStr() string {
 		cd.Password,
 		cd.Address,
 		cd.Port,
-		cd.Database)
+		cd.Database,
+	)
 }

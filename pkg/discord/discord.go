@@ -16,7 +16,7 @@ func OpenSession() {
 	util.CheckErrMsg(err, "Discordgo bot init failure")
 
 	session.AddHandler(func(s *discordgo.Session, r *discordgo.Ready) {
-		log.Printf("Logged in %s : %s", r.User.Username, r.User.Discriminator)
+		log.Printf("Logged in as %s#%s", r.User.Username, r.User.Discriminator)
 	})
 
 	err = session.Open()

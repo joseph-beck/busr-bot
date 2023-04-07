@@ -14,7 +14,8 @@ func (r Race) Str() string {
 		"%s, %d, %s",
 		r.Name,
 		r.Laps,
-		r.Winner.Name)
+		r.Winner.Name,
+	)
 }
 
 func (r Race) Out() string {
@@ -22,5 +23,6 @@ func (r Race) Out() string {
 		"Race Name: %s, Laps: %d, Winner: %s",
 		r.Name,
 		r.Laps,
-		r.Winner.Name)
+		r.Winner.Name,
+	)
 }

@@ -16,7 +16,8 @@ func getRecord(selection string, table string, query string) *sqlx.Rows {
 		"select %s from %s where %s;",
 		selection,
 		table,
-		query))
+		query,
+	))
 
 	if err != nil {
 		panic(err.Error())
@@ -32,7 +33,8 @@ func getRecords(table string, query string) [][]string {
 	record, err := conn.db.Query(fmt.Sprintf(
 		"select * from %s where %s;",
 		table,
-		query))
+		query,
+	))
 
 	if err != nil {
 		panic(err.Error())
@@ -46,7 +48,8 @@ func getTable(table string) [][]string {
 	conn := Connect()
 	record, err := conn.db.Query(fmt.Sprintf(
 		"select * from %s;",
-		table))
+		table,
+	))
 
 	if err != nil {
 		panic(err.Error())
@@ -87,7 +90,8 @@ func updateRecord(table string, updates string, query string) {
 		where %s;`,
 		table,
 		updates,
-		query))
+		query,
+	))
 
 	if err != nil {
 		panic(err.Error())
@@ -104,7 +108,8 @@ func updateRecords(table string, updates []string, queries []string) {
 			where %s;`,
 			table,
 			element,
-			queries[index]))
+			queries[index],
+		))
 
 		if err != nil {
 			panic(err.Error())
@@ -118,7 +123,8 @@ func deleteRecord(table string, query string) {
 	delete, err := conn.db.Query(fmt.Sprintf(
 		"delete from %s where %s;",
 		table,
-		query))
+		query,
+	))
 
 	if err != nil {
 		panic(err.Error())
@@ -136,7 +142,8 @@ func deleteRecords(table string, query string, records []string) { // TODO fix t
 	delete, err := conn.db.Query(fmt.Sprintf(
 		"delete from %s where %s;",
 		table,
-		query))
+		query,
+	))
 
 	if err != nil {
 		panic(err.Error())
@@ -148,7 +155,8 @@ func deleteTable(table string) {
 	conn := Connect()
 	delete, err := conn.db.Query(fmt.Sprintf(
 		"drop table %s;",
-		table))
+		table,
+	))
 
 	if err != nil {
 		panic(err.Error())
@@ -162,7 +170,8 @@ func deleteTables(tables []string) {
 	for _, element := range tables {
 		delete, err := conn.db.Query(fmt.Sprintf(
 			"drop table %s;",
-			element))
+			element,
+		))
 
 		if err != nil {
 			panic(err.Error())
