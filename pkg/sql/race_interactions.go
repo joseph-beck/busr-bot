@@ -17,26 +17,25 @@ func GetRace(id int) f1.Race {
 	defer result.Close()
 
 	var race f1.Race
-
-	var pIds [3]int
-	var sId int
+	var podium [3]int
+	var season int
 
 	result.Next()
 	err = result.Scan(
 		&race.Id,
 		&race.Track,
 		&race.Laps,
-		&pIds[0],
-		&pIds[1],
-		&pIds[2],
-		&sId,
+		&podium[0],
+		&podium[1],
+		&podium[2],
+		&season,
 	)
 	util.CheckErr(err)
 
-	race.First = GetDriver(pIds[0])
-	race.Second = GetDriver(pIds[1])
-	race.Third = GetDriver(pIds[2])
-	race.Season = GetSeason(sId)
+	race.First = GetDriver(podium[0])
+	race.Second = GetDriver(podium[1])
+	race.Third = GetDriver(podium[2])
+	race.Season = GetSeason(season)
 
 	return race
 }

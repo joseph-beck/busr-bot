@@ -17,9 +17,18 @@ func GetSeason(id int) f1.Season {
 	defer result.Close()
 
 	var season f1.Season
+	var champion int
+
 	result.Next()
-	err = result.StructScan(&season)
+	err = result.Scan(
+		&season.Id,
+		&season.Year,
+		&season.Season,
+		&champion,
+	)
 	util.CheckErr(err)
+
+	season.Champion = GetDriver(champion)
 
 	return season
 }

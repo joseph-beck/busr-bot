@@ -36,7 +36,7 @@ func (q Qualifying) SqlStr() string {
 
 func (q Qualifying) Out() string {
 	return fmt.Sprintf(
-		"`` Track: %s\n Pole: %s\n Second: %s\n Third: %s\n",
+		"``` Track: %s\n Pole: %s\n Second: %s\n Third: %s\n ```",
 		q.Race.Track.Str(),
 		q.First.Name,
 		q.Second.Name,

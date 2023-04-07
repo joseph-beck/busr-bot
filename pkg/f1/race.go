@@ -42,7 +42,7 @@ func (r Race) SqlStr() string {
 
 func (r Race) Out() string {
 	return fmt.Sprintf(
-		"`` Race: %s\n Laps: %d\n Winner: %s\n Second: %s\n Third: %s\n Season: %s ``",
+		"``` Race: %s\n Laps: %d\n Winner: %s\n Second: %s\n Third: %s\n Season: %s ```",
 		r.Track.Str(),
 		r.Laps,
 		r.First.Name,

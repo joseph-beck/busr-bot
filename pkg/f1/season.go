@@ -32,7 +32,7 @@ func (s Season) SqlStr() string {
 
 func (s Season) Out() string {
 	return fmt.Sprintf(
-		"`` Season: %s\n Year: %d\n Champion %s ``",
+		"``` Season: %s %d\n Champion: %s ```",
 		s.Season.Str(),
 		s.Year,
 		s.Champion.Name,
