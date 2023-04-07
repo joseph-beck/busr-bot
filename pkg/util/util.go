@@ -9,3 +9,9 @@ func CheckErr(err error) {
 		log.Fatal(err)
 	}
 }
+
+func CheckErrMsg(err error, msg string) {
+	if err != nil {
+		log.Fatal(msg+" ", err)
+	}
+}

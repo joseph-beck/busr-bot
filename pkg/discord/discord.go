@@ -1,15 +1,18 @@
 package discord
 
 import (
+	"bot/pkg/commands"
 	"bot/pkg/util"
 	"log"
+	"os"
+	"os/signal"
 
 	"github.com/bwmarrin/discordgo"
 )
 
 func OpenSession() {
 	conf := Config()
-	session, err := discordgo.New("Bot" + conf.Token)
+	session, err := discordgo.New("Bot " + conf.Token)
 	util.CheckErrMsg(err, "Discordgo bot init failure")
 
 	session.AddHandler(func(s *discordgo.Session, r *discordgo.Ready) {
@@ -19,4 +22,19 @@ func OpenSession() {
 	err = session.Open()
 	util.CheckErrMsg(err, "Session opening failure")
 	defer session.Close()
+
+	log.Println("Registering slash cmds")
+	commands.RegisterCommands(session)
+	log.Println("Commands registered")
+
+	err = session.UpdateGameStatus(0, conf.Status)
+	util.CheckErrMsg(err, "Status setting failure")
+
+	stop := make(chan os.Signal, 1)
+	signal.Notify(stop, os.Interrupt)
+	<-stop
+
+	log.Println("Clearing slash cmds")
+	commands.ClearCommands(session)
+	log.Println("Commands cleared")
 }

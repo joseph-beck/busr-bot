@@ -54,3 +54,15 @@ func UpdateDriver(driver *f1.Driver) {
 	util.CheckErr(err)
 	defer update.Close()
 }
+
+func CheckDriver(id int) bool {
+	conn := Connect()
+	err := conn.db.QueryRow(fmt.Sprintf(
+		"select id from driver where id=%d",
+		id)).Scan(&id)
+
+	exists, err := util.CheckRow(err)
+	util.CheckErr(err)
+
+	return exists
+}

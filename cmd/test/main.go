@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bot/pkg/discord"
 	"bot/pkg/sql"
 	"fmt"
 )
@@ -12,4 +13,6 @@ func main() {
 	fmt.Println(maddog.Out())
 
 	defer sql.Disconnect()
+
+	discord.OpenSession()
 }
