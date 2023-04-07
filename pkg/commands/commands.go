@@ -59,7 +59,11 @@ var cmds = []*discordgo.ApplicationCommand{
 	},
 	{
 		Name:        "season",
-		Description: "Get a seasons results.",
+		Description: "Get a season result.",
+	},
+	{
+		Name:        "race",
+		Description: "Get a race result.",
 	},
 }
 
@@ -71,6 +75,7 @@ var cmdHandlers = map[string]func(s *discordgo.Session, i *discordgo.Interaction
 	"podiums": podiums,
 	"points":  points,
 	"season": season,
+	"race": race,
 }
 
 var btnHandlers = map[string]func(s *discordgo.Session, i *discordgo.InteractionCreate){}

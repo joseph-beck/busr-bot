@@ -2,7 +2,7 @@ package f1
 
 import "fmt"
 
-// generate id by combining 4, race number (2 digits starting at 1), year (2 digits) and the number of qualifying (2 digits starting at 1)
+// generate id by combining 4, race number (2 digits starting at 01), year (2 digits) and number of races (2 digits starts at 01)
 // for example 4012201
 type Race struct {
 	Id     int
@@ -48,6 +48,6 @@ func (r Race) Out() string {
 		r.First.Name,
 		r.Second.Name,
 		r.Third.Name,
-		r.Season.Season.Str(),
+		fmt.Sprintf("%s %d", r.Season.Season.Str(), r.Season.Year),
 	)
 }
