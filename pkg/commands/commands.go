@@ -60,10 +60,49 @@ var cmds = []*discordgo.ApplicationCommand{
 	{
 		Name:        "season",
 		Description: "Get a season result.",
+		Options: []*discordgo.ApplicationCommandOption{
+			{
+				Type:        discordgo.ApplicationCommandOptionString,
+				Name:        "season",
+				Description: "Season (Spring, Summer or Winter)",
+				Required:    true,
+				Choices:     seasonChoices,
+			},
+			{
+				Type:        discordgo.ApplicationCommandOptionInteger,
+				Name:        "year",
+				Description: "Year of Season",
+				Required:    true,
+				Choices:     yearChoices,
+			},
+		},
 	},
 	{
 		Name:        "race",
 		Description: "Get a race result.",
+		Options: []*discordgo.ApplicationCommandOption{
+			{
+				Type:        discordgo.ApplicationCommandOptionString,
+				Name:        "race",
+				Description: "Name of track.",
+				Required:    true,
+				Choices:     raceChoices,
+			},
+			{
+				Type:        discordgo.ApplicationCommandOptionString,
+				Name:        "season",
+				Description: "Season of race.",
+				Required:    true,
+				Choices:     seasonChoices,
+			},
+			{
+				Type:        discordgo.ApplicationCommandOptionInteger,
+				Name:        "year",
+				Description: "Year of race.",
+				Required:    true,
+				Choices:     yearChoices,
+			},
+		},
 	},
 }
 
@@ -74,8 +113,8 @@ var cmdHandlers = map[string]func(s *discordgo.Session, i *discordgo.Interaction
 	"wins":    wins,
 	"podiums": podiums,
 	"points":  points,
-	"season": season,
-	"race": race,
+	"season":  season,
+	"race":    race,
 }
 
 var btnHandlers = map[string]func(s *discordgo.Session, i *discordgo.InteractionCreate){}

@@ -2,8 +2,8 @@ package f1
 
 import "fmt"
 
-// generate id by combining 4, race number (2 digits starting at 01), year (2 digits) and number of races (2 digits starts at 01)
-// for example 4012201
+// generate id by combining 4, race number (2 digits starting at 01), year (2 digits) and season number (01: sprint, 02: summer, 03: winter)
+// for belgium in spring 23 would be 4142301
 type Race struct {
 	Id     int
 	Track  Tracks
