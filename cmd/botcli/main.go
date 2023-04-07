@@ -1,9 +1,14 @@
 package main
 
-import(
-	"fmt"
+import (
+	discord "bot/pkg/disgo"
+	"bot/pkg/sql"
+	"log"
 )
 
 func main() {
-	fmt.Println("Hello World!")
+	log.Println("Running tester")
+	sql.Connect()
+	discord.OpenSession()
+	defer sql.Disconnect()
 }

@@ -13,7 +13,7 @@ import (
 func stats(s *discordgo.Session, i *discordgo.InteractionCreate) {
 	user := i.ApplicationCommandData().Options[0].UserValue(s)
 	if user.Bot {
-		respond(s, i, "Not a valid target", true)
+		respond(s, i, invalidTarget, true)
 		return
 	}
 
@@ -26,7 +26,7 @@ func stats(s *discordgo.Session, i *discordgo.InteractionCreate) {
 
 		respond(s, i, msg, false)
 	} else {
-		respond(s, i, "Driver does not exist!", true)
+		respond(s, i, invalidDriver, true)
 	}
 }
 
@@ -34,7 +34,7 @@ func stats(s *discordgo.Session, i *discordgo.InteractionCreate) {
 func wins(s *discordgo.Session, i *discordgo.InteractionCreate) {
 	user := i.ApplicationCommandData().Options[0].UserValue(s)
 	if user.Bot {
-		respond(s, i, "Not a valid target", true)
+		respond(s, i, invalidTarget, true)
 		return
 	}
 
@@ -44,14 +44,14 @@ func wins(s *discordgo.Session, i *discordgo.InteractionCreate) {
 	if sql.CheckDriver(id) {
 		wins := sql.GetWins(id)
 		msg := fmt.Sprintf(
-			"``%s has %d wins.``",
+			"`` %s has %d wins.``",
 			user.Username,
 			wins,
 		)
 
 		respond(s, i, msg, true)
 	} else {
-		respond(s, i, "Driver does not exist!", true)
+		respond(s, i, invalidDriver, true)
 	}
 }
 
@@ -59,7 +59,7 @@ func wins(s *discordgo.Session, i *discordgo.InteractionCreate) {
 func podiums(s *discordgo.Session, i *discordgo.InteractionCreate) {
 	user := i.ApplicationCommandData().Options[0].UserValue(s)
 	if user.Bot {
-		respond(s, i, "Not a valid target", true)
+		respond(s, i, invalidTarget, true)
 		return
 	}
 
@@ -69,14 +69,14 @@ func podiums(s *discordgo.Session, i *discordgo.InteractionCreate) {
 	if sql.CheckDriver(id) {
 		wins := sql.GetPodiums(id)
 		msg := fmt.Sprintf(
-			"``%s has %d podiums.``",
+			"`` %s has %d podiums ``",
 			user.Username,
 			wins,
 		)
 
 		respond(s, i, msg, true)
 	} else {
-		respond(s, i, "Driver does not exist!", true)
+		respond(s, i, invalidDriver, true)
 	}
 }
 
@@ -84,7 +84,7 @@ func podiums(s *discordgo.Session, i *discordgo.InteractionCreate) {
 func points(s *discordgo.Session, i *discordgo.InteractionCreate) {
 	user := i.ApplicationCommandData().Options[0].UserValue(s)
 	if user.Bot {
-		respond(s, i, "Not a valid target", true)
+		respond(s, i, invalidTarget, true)
 		return
 	}
 
@@ -94,13 +94,13 @@ func points(s *discordgo.Session, i *discordgo.InteractionCreate) {
 	if sql.CheckDriver(id) {
 		wins := sql.GetPoints(id)
 		msg := fmt.Sprintf(
-			"``%s has %.2f points.``",
+			"`` %s has %.2f points ``",
 			user.Username,
 			wins,
 		)
 
 		respond(s, i, msg, true)
 	} else {
-		respond(s, i, "Driver does not exist!", true)
+		respond(s, i, invalidDriver, true)
 	}
 }

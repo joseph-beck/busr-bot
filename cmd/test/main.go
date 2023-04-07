@@ -3,16 +3,12 @@ package main
 import (
 	discord "bot/pkg/disgo"
 	"bot/pkg/sql"
-	"fmt"
+	"log"
 )
 
 func main() {
-	fmt.Println("running tester")
-
-	maddog := sql.GetDriver(286245298010062851)
-	fmt.Println(maddog.Out())
-
-	defer sql.Disconnect()
-
+	log.Println("Running tester")
+	sql.Connect()
 	discord.OpenSession()
+	defer sql.Disconnect()
 }

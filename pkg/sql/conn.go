@@ -2,6 +2,7 @@ package sql
 
 import (
 	"bot/pkg/util"
+	"log"
 	"sync"
 
 	"github.com/jmoiron/sqlx"
@@ -37,10 +38,12 @@ func Disconnect() {
 func connDb() sqlx.DB {
 	db, err := sqlx.Open("mysql", connStr())
 	util.CheckErrMsg(err, "SQL connection failure")
+	log.Println("Database connected")
 
 	return *db
 }
 
 func closeDb(db *sqlx.DB) {
 	defer db.Close()
+	log.Println("Database disconnecting")
 }

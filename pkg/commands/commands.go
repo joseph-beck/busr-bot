@@ -8,7 +8,7 @@ import (
 	"github.com/bwmarrin/discordgo"
 )
 
-var commands = []*discordgo.ApplicationCommand{
+var cmds = []*discordgo.ApplicationCommand{
 	{
 		Name:        "stats",
 		Description: "Get another players stats.",
@@ -71,9 +71,9 @@ var cmdHandlers = map[string]func(s *discordgo.Session, i *discordgo.Interaction
 var btnHandlers = map[string]func(s *discordgo.Session, i *discordgo.InteractionCreate){}
 
 func RegisterCommands(s *discordgo.Session) {
-	regCmds = make([]*discordgo.ApplicationCommand, len(commands))
+	regCmds = make([]*discordgo.ApplicationCommand, len(cmds))
 
-	for i, cmd := range commands {
+	for i, cmd := range cmds {
 		c, err := s.ApplicationCommandCreate(s.State.User.ID, "", cmd)
 		util.CheckErrMsg(err, "Command creation failure :/"+cmd.Name)
 

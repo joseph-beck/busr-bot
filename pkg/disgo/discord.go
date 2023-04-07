@@ -28,7 +28,7 @@ func OpenSession() {
 	log.Println("Commands registered")
 
 	err = session.UpdateGameStatus(0, conf.Status)
-	util.CheckErrMsg(err, "Status setting failure")
+	util.CheckErrMsg(err, "Status update failed, status: "+conf.Status)
 
 	stop := make(chan os.Signal, 1)
 	signal.Notify(stop, os.Interrupt)
