@@ -1,7 +1,7 @@
 package main
 
 import (
-	"bot/pkg/discord"
+	discord "bot/pkg/disgo"
 	"bot/pkg/sql"
 	"fmt"
 )

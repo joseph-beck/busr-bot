@@ -33,13 +33,39 @@ var commands = []*discordgo.ApplicationCommand{
 			},
 		},
 	},
+	{
+		Name:        "podiums",
+		Description: "Get another players podiums.",
+		Options: []*discordgo.ApplicationCommandOption{
+			{
+				Type:        discordgo.ApplicationCommandOptionUser,
+				Name:        "driver",
+				Description: "Player who's podiums you wish to retrieve.",
+				Required:    true,
+			},
+		},
+	},
+	{
+		Name:        "points",
+		Description: "Get another players points.",
+		Options: []*discordgo.ApplicationCommandOption{
+			{
+				Type:        discordgo.ApplicationCommandOptionUser,
+				Name:        "driver",
+				Description: "Player who's points you wish to retrieve.",
+				Required:    true,
+			},
+		},
+	},
 }
 
 var regCmds []*discordgo.ApplicationCommand
 
 var cmdHandlers = map[string]func(s *discordgo.Session, i *discordgo.InteractionCreate){
-	"stats": stats,
-	"wins":  wins,
+	"stats":   stats,
+	"wins":    wins,
+	"podiums": podiums,
+	"points":  points,
 }
 
 var btnHandlers = map[string]func(s *discordgo.Session, i *discordgo.InteractionCreate){}
