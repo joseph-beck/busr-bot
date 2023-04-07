@@ -6,8 +6,6 @@ import (
 	"fmt"
 )
 
-// add stuff here i guess
-
 func GetDriver(id int) f1.Driver {
 	conn := Connect()
 	result, err := conn.db.Queryx(fmt.Sprintf(
