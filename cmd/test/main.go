@@ -1,7 +1,7 @@
 package main
 
 import (
-	discord "bot/pkg/disgo"
+	"bot/pkg/discord"
 	"bot/pkg/sql"
 	"log"
 )

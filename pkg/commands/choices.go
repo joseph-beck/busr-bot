@@ -2,6 +2,17 @@ package commands
 
 import "github.com/bwmarrin/discordgo"
 
+var formulaChoices = []*discordgo.ApplicationCommandOptionChoice{
+	{
+		Name:  "Formula 1",
+		Value: "1",
+	},
+	{
+		Name:  "Formula 2",
+		Value: "2",
+	},
+}
+
 var seasonChoices = []*discordgo.ApplicationCommandOptionChoice{
 	{
 		Name:  "Spring",
