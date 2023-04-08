@@ -35,30 +35,6 @@ func GetQualifying(id int) f1.Qualifying {
 	return quali
 }
 
-func AddQualifying(race f1.Race) {
-	conn := Connect()
-	insert, err := conn.db.Query(fmt.Sprintf(
-		`insert into quali(id, ) 
-		values(%s);`,
-		race.SqlStr(),
-	))
-
-	util.CheckErr(err)
-	defer insert.Close()
-}
-
-func CheckQualifying(id int) bool {
-	conn := Connect()
-	err := conn.db.QueryRow(fmt.Sprintf(
-		"select id from qualifying where id=%d",
-		id)).Scan(&id)
-
-	exists, err := util.CheckRow(err)
-	util.CheckErr(err)
-
-	return exists
-}
-
 func GetQualifyingResults(id int) f1.QualifyingResults {
 	fmt.Println(id)
 	conn := Connect()
@@ -117,4 +93,28 @@ func GetQualifyingTimings(id int) f1.QualifyingTimings {
 	util.CheckErrMsg(err, "at getting qualifying results")
 
 	return timings
+}
+
+func AddQualifying(race f1.Race) {
+	conn := Connect()
+	insert, err := conn.db.Query(fmt.Sprintf(
+		`insert into quali(id, ) 
+		values(%s);`,
+		race.SqlStr(),
+	))
+
+	util.CheckErr(err)
+	defer insert.Close()
+}
+
+func CheckQualifying(id int) bool {
+	conn := Connect()
+	err := conn.db.QueryRow(fmt.Sprintf(
+		"select id from qualifying where id=%d",
+		id)).Scan(&id)
+
+	exists, err := util.CheckRow(err)
+	util.CheckErr(err)
+
+	return exists
 }
