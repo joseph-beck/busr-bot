@@ -4,7 +4,7 @@ import "github.com/bwmarrin/discordgo"
 
 var seasonChoices = []*discordgo.ApplicationCommandOptionChoice{
 	{
-		Name:  "Sprint",
+		Name:  "Spring",
 		Value: "01",
 	},
 	{
@@ -20,11 +20,11 @@ var seasonChoices = []*discordgo.ApplicationCommandOptionChoice{
 var yearChoices = []*discordgo.ApplicationCommandOptionChoice{
 	{
 		Name:  "22",
-		Value: 22,
+		Value: "22",
 	},
 	{
 		Name:  "23",
-		Value: 23,
+		Value: "23",
 	},
 }
 

@@ -44,3 +44,15 @@ func AddSeason(race f1.Race) {
 	util.CheckErr(err)
 	defer insert.Close()
 }
+
+func CheckSeason(id int) bool {
+	conn := Connect()
+	err := conn.db.QueryRow(fmt.Sprintf(
+		"select id from season where id=%d",
+		id)).Scan(&id)
+
+	exists, err := util.CheckRow(err)
+	util.CheckErr(err)
+
+	return exists
+}

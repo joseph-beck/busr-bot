@@ -69,7 +69,7 @@ var cmds = []*discordgo.ApplicationCommand{
 				Choices:     seasonChoices,
 			},
 			{
-				Type:        discordgo.ApplicationCommandOptionInteger,
+				Type:        discordgo.ApplicationCommandOptionString,
 				Name:        "year",
 				Description: "Year of Season",
 				Required:    true,
@@ -96,7 +96,7 @@ var cmds = []*discordgo.ApplicationCommand{
 				Choices:     seasonChoices,
 			},
 			{
-				Type:        discordgo.ApplicationCommandOptionInteger,
+				Type:        discordgo.ApplicationCommandOptionString,
 				Name:        "year",
 				Description: "Year of race.",
 				Required:    true,

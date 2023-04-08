@@ -51,3 +51,15 @@ func AddRace(race f1.Race) {
 	util.CheckErr(err)
 	defer insert.Close()
 }
+
+func CheckRace(id int) bool {
+	conn := Connect()
+	err := conn.db.QueryRow(fmt.Sprintf(
+		"select id from race where id=%d",
+		id)).Scan(&id)
+
+	exists, err := util.CheckRow(err)
+	util.CheckErr(err)
+
+	return exists
+}
