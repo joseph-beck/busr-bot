@@ -1,7 +1,5 @@
 package sql
 
-
-
 const driversTable string = `
 	create table drivers(
 		id int primary key not null,

@@ -62,7 +62,7 @@ func (d Driver) UpdateStr() string {
 
 func (d Driver) Out() string {
 	return fmt.Sprintf(
-		"``` Name: %s\n University: %s\n Wins: %d\n Poles: %d\n Podiums %d\n Starts: %d\n Points: %.2f\n Average Qualifying: %.2f```",
+		"``` **Name**: %s\n **University**: %s\n **Wins**: %d\n **Poles**: %d\n **Podiums**: %d\n **Starts**: %d\n **Points**: %.2f\n **Average Qualifying**: %.2f```",
 		d.Name,
 		d.University,
 		d.Wins,

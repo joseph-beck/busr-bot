@@ -104,6 +104,33 @@ var cmds = []*discordgo.ApplicationCommand{
 			},
 		},
 	},
+	{
+		Name:        "quali",
+		Description: "Get a qualifying result.",
+		Options: []*discordgo.ApplicationCommandOption{
+			{
+				Type:        discordgo.ApplicationCommandOptionString,
+				Name:        "race",
+				Description: "Name of track.",
+				Required:    true,
+				Choices:     raceChoices,
+			},
+			{
+				Type:        discordgo.ApplicationCommandOptionString,
+				Name:        "season",
+				Description: "Season of race.",
+				Required:    true,
+				Choices:     seasonChoices,
+			},
+			{
+				Type:        discordgo.ApplicationCommandOptionString,
+				Name:        "year",
+				Description: "Year of race.",
+				Required:    true,
+				Choices:     yearChoices,
+			},
+		},
+	},
 }
 
 var regCmds []*discordgo.ApplicationCommand
@@ -115,6 +142,7 @@ var cmdHandlers = map[string]func(s *discordgo.Session, i *discordgo.Interaction
 	"points":  points,
 	"season":  season,
 	"race":    race,
+	"quali":   qualifying,
 }
 
 var btnHandlers = map[string]func(s *discordgo.Session, i *discordgo.InteractionCreate){}

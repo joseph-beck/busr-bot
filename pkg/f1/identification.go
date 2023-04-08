@@ -19,6 +19,15 @@ func GenRaceId(race string, year string, season string) int {
 	i += race + year + season
 
 	id, err := strconv.Atoi(i)
-	util.CheckErrMsg(err, "Error generating season id")
+	util.CheckErrMsg(err, "Error generating race id")
+	return id
+}
+
+func GenQualifyingId(race string, year string, season string) int {
+	i := "9"
+	i += race + year + season + "1"
+
+	id, err := strconv.Atoi(i)
+	util.CheckErrMsg(err, "Error generating qualifying id")
 	return id
 }
