@@ -10,74 +10,6 @@ import (
 
 var cmds = []*discordgo.ApplicationCommand{
 	{
-		Name:        "stats",
-		Description: "Get another players stats.",
-		Options: []*discordgo.ApplicationCommandOption{
-			{
-				Type:        discordgo.ApplicationCommandOptionUser,
-				Name:        "driver",
-				Description: "Player who's stats you wish to retrieve.",
-				Required:    true,
-			},
-		},
-	},
-	{
-		Name:        "wins",
-		Description: "Get another players wins.",
-		Options: []*discordgo.ApplicationCommandOption{
-			{
-				Type:        discordgo.ApplicationCommandOptionUser,
-				Name:        "driver",
-				Description: "Player who's wins you wish to retrieve.",
-				Required:    true,
-			},
-		},
-	},
-	{
-		Name:        "podiums",
-		Description: "Get another players podiums.",
-		Options: []*discordgo.ApplicationCommandOption{
-			{
-				Type:        discordgo.ApplicationCommandOptionUser,
-				Name:        "driver",
-				Description: "Player who's podiums you wish to retrieve.",
-				Required:    true,
-			},
-		},
-	},
-	{
-		Name:        "points",
-		Description: "Get another players points.",
-		Options: []*discordgo.ApplicationCommandOption{
-			{
-				Type:        discordgo.ApplicationCommandOptionUser,
-				Name:        "driver",
-				Description: "Player who's points you wish to retrieve.",
-				Required:    true,
-			},
-		},
-	},
-	{
-		Name:        "season",
-		Description: "Get a season result.",
-		Options: []*discordgo.ApplicationCommandOption{
-			{
-				Type:        discordgo.ApplicationCommandOptionString,
-				Name:        "season",
-				Description: "Season (Spring, Summer or Winter)",
-				Required:    true,
-				Choices:     seasonChoices,
-			},
-			{
-				Type:        discordgo.ApplicationCommandOptionString,
-				Name:        "year",
-				Description: "Year of Season",
-				Required:    true,
-				Choices:     yearChoices,
-			},
-		},
-	},
-	{
 		Name:        "race",
 		Description: "Get a race result.",
 		Options: []*discordgo.ApplicationCommandOption{
@@ -202,11 +134,6 @@ var cmds = []*discordgo.ApplicationCommand{
 var regCmds []*discordgo.ApplicationCommand
 
 var cmdHandlers = map[string]func(s *discordgo.Session, i *discordgo.InteractionCreate){
-	"stats":   stats,
-	"wins":    wins,
-	"podiums": podiums,
-	"points":  points,
-	"season":  season,
 	"race":    race,
 	"quali":   qualifying,
 	"weekend": weekend,
