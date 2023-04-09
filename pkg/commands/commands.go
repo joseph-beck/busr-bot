@@ -82,6 +82,19 @@ var cmds = []*discordgo.ApplicationCommand{
 		Description: "Get a race result.",
 		Options: []*discordgo.ApplicationCommandOption{
 			{
+				Type:        discordgo.ApplicationCommandOptionUser,
+				Name:        "driver",
+				Description: "What driver do you want to see?",
+				Required:    true,
+			},
+			{
+				Type:        discordgo.ApplicationCommandOptionString,
+				Name:        "formula",
+				Description: "What formula series was the race?",
+				Required:    true,
+				Choices:     formulaChoices,
+			},
+			{
 				Type:        discordgo.ApplicationCommandOptionString,
 				Name:        "race",
 				Description: "Name of track.",
@@ -108,6 +121,19 @@ var cmds = []*discordgo.ApplicationCommand{
 		Name:        "quali",
 		Description: "Get a qualifying result.",
 		Options: []*discordgo.ApplicationCommandOption{
+			{
+				Type:        discordgo.ApplicationCommandOptionUser,
+				Name:        "driver",
+				Description: "What driver do you want to see?",
+				Required:    true,
+			},
+			{
+				Type:        discordgo.ApplicationCommandOptionString,
+				Name:        "formula",
+				Description: "What formula series was the race?",
+				Required:    true,
+				Choices:     formulaChoices,
+			},
 			{
 				Type:        discordgo.ApplicationCommandOptionString,
 				Name:        "race",
