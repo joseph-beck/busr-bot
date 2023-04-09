@@ -20,7 +20,7 @@ type QualifyingResult struct {
 	Points   float64
 }
 
-func (q QualifyingResult) Str() string {
+func (q *QualifyingResult) Str() string {
 	return fmt.Sprintf(
 		"Qualifying Result\n Driver: %s\n Position: %d\n, Time: %s\n Points: %.2f \n",
 		q.Driver.Name,
@@ -30,7 +30,7 @@ func (q QualifyingResult) Str() string {
 	)
 }
 
-func (q QualifyingResult) Out() string {
+func (q *QualifyingResult) Out() string {
 	return fmt.Sprintf(
 		"\n Position: %d\n Time: %s\n Points: %.2f\n",
 		q.Position,

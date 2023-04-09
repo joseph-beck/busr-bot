@@ -18,7 +18,7 @@ type RaceWeekend struct {
 	Race       RaceResult
 }
 
-func (r RaceWeekendPrimitive) Str() string {
+func (r *RaceWeekendPrimitive) Str() string {
 	return fmt.Sprintf(
 		"%d, %d, %d, %d, %d",
 		r.Id,

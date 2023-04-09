@@ -20,7 +20,7 @@ type RaceResult struct {
 	Points   float64
 }
 
-func (r RaceResult) Str() string {
+func (r *RaceResult) Str() string {
 	return fmt.Sprintf(
 		"Sprint Result\n Driver: %s\n Position: %d\n, Time: %s\n Points: %.2f \n",
 		r.Driver.Name,
@@ -30,7 +30,7 @@ func (r RaceResult) Str() string {
 	)
 }
 
-func (r RaceResult) Out() string {
+func (r *RaceResult) Out() string {
 	return fmt.Sprintf(
 		"\n Position: %d\n Time: %s\n Points: %.2f\n",
 		r.Position,

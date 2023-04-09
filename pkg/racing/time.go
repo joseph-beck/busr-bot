@@ -8,7 +8,7 @@ type Time struct {
 	Milliseconds int
 }
 
-func (t Time) Str() string {
+func (t *Time) Str() string {
 	return fmt.Sprintf(
 		"%d, %d, %d",
 		t.Minutes,
@@ -17,7 +17,7 @@ func (t Time) Str() string {
 	)
 }
 
-func (t Time) Out() string {
+func (t *Time) Out() string {
 	if t.Minutes == 0 {
 		return "--:--.---"
 	}
