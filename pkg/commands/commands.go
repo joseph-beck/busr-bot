@@ -10,6 +10,18 @@ import (
 
 var cmds = []*discordgo.ApplicationCommand{
 	{
+		Name:        "driver",
+		Description: "Get a driver",
+		Options: []*discordgo.ApplicationCommandOption{
+			{
+				Type:        discordgo.ApplicationCommandOptionUser,
+				Name:        "driver",
+				Description: "What driver do you want to see?",
+				Required:    true,
+			},
+		},
+	},
+	{
 		Name:        "race",
 		Description: "Get a race result.",
 		Options: []*discordgo.ApplicationCommandOption{
@@ -134,6 +146,7 @@ var cmds = []*discordgo.ApplicationCommand{
 var regCmds []*discordgo.ApplicationCommand
 
 var cmdHandlers = map[string]func(s *discordgo.Session, i *discordgo.InteractionCreate){
+	"driver":  driver,
 	"race":    race,
 	"quali":   qualifying,
 	"weekend": weekend,
