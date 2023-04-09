@@ -12,16 +12,23 @@ func GenWeekendId(series string, race string, season string, year string) int {
 	return id
 }
 
-func GenRaceId(series string, race string, season string, year string) int {
-	i := series + "4" + race + season + year
-	id, err := strconv.Atoi(i)
-	util.CheckErrMsg(err, "Error generating race id")
-	return id
-}
-
 func GenQualiId(series string, race string, season string, year string) int {
 	i := series + "9" + race + season + year
 	id, err := strconv.Atoi(i)
 	util.CheckErrMsg(err, "Error generating qualifying id")
+	return id
+}
+
+func GenSprintId(series string, race string, season string, year string) int {
+	i := series + "5" + race + season + year
+	id, err := strconv.Atoi(i)
+	util.CheckErrMsg(err, "Error generating sprint id")
+	return id
+}
+
+func GenRaceId(series string, race string, season string, year string) int {
+	i := series + "4" + race + season + year
+	id, err := strconv.Atoi(i)
+	util.CheckErrMsg(err, "Error generating race id")
 	return id
 }

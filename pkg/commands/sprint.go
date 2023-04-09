@@ -5,14 +5,12 @@ import (
 	"bot/pkg/sql"
 	"bot/pkg/util"
 	"fmt"
-	"log"
 	"strconv"
 
 	"github.com/bwmarrin/discordgo"
 )
 
-// qualifying
-func qualifying(s *discordgo.Session, i *discordgo.InteractionCreate) {
+func sprint(s *discordgo.Session, i *discordgo.InteractionCreate) {
 	user := i.ApplicationCommandData().Options[0].UserValue(s)
 	if user.Bot {
 		respond(s, i, invalidTarget, true)
@@ -26,18 +24,17 @@ func qualifying(s *discordgo.Session, i *discordgo.InteractionCreate) {
 
 	userId, err := strconv.Atoi(user.ID)
 	util.CheckErrMsg(err, "Conversion error occurred converted User Id: "+user.ID)
-	qualiResultId := racing.GenQualiId(series, race, season, year)
+	raceResultId := racing.GenSprintId(series, race, season, year)
 
-	log.Println(qualiResultId)
-	if sql.CheckQualifyingResult(qualiResultId, userId) {
-		qualiResult := sql.QualifyingResult(qualiResultId, userId)
+	if sql.CheckSprintResult(raceResultId, userId) {
+		raceResult := sql.SprintResult(raceResultId, userId)
 		msg := fmt.Sprintf(
-			">>> **Qualifying result for %s**: \n%s",
+			">>> **Sprint result for %s**: \n%s",
 			user.Username,
-			qualiResult.Out(),
+			raceResult.Out(),
 		)
 		respond(s, i, msg, false)
 	} else {
-		respond(s, i, invalidQuali, true)
+		respond(s, i, invalidSprint, true)
 	}
 }
