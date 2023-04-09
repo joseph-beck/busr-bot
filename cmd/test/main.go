@@ -10,5 +10,5 @@ func main() {
 	log.Println("Running tester")
 	sql.Connect()
 	discord.OpenSession()
-	defer sql.Disconnect()
+	//defer sql.Disconnect()
 }

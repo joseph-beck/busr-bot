@@ -1,6 +1,6 @@
 package racing
 
-type RaceWeekendPrimitve struct {
+type Driver struct {
 	Id         int
 	Name       string
 	University string

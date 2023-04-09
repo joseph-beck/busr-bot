@@ -2,6 +2,7 @@ package sql
 
 import (
 	"bot/pkg/f1"
+	"bot/pkg/racing"
 	"bot/pkg/util"
 	"fmt"
 )
@@ -59,8 +60,9 @@ func UpdateDriver(driver *f1.Driver) {
 func CheckDriver(id int) bool {
 	conn := Connect()
 	err := conn.db.QueryRow(fmt.Sprintf(
-		"select id from driver where id=%d",
-		id)).Scan(&id)
+		"select id from drivers where id=%d;",
+		id),
+	).Scan(&id)
 
 	exists, err := util.CheckRow(err)
 	util.CheckErr(err)
@@ -68,56 +70,21 @@ func CheckDriver(id int) bool {
 	return exists
 }
 
-func GetWins(id int) int {
+
+func Driver(id int) racing.Driver {
 	conn := Connect()
-	result, err := conn.db.Query(fmt.Sprintf(
-		"select wins from driver where id=%d",
+	result, err := conn.db.Queryx(fmt.Sprintf(
+		"select * from drivers where id=%d;",
 		id,
 	))
 
 	util.CheckErr(err)
 	defer result.Close()
 
-	var wins int
+	var driver racing.Driver
 	result.Next()
-	err = result.Scan(&wins)
+	err = result.StructScan(&driver)
 	util.CheckErr(err)
 
-	return wins
-}
-
-func GetPodiums(id int) int {
-	conn := Connect()
-	result, err := conn.db.Query(fmt.Sprintf(
-		"select podiums from driver where id=%d",
-		id,
-	))
-
-	util.CheckErr(err)
-	defer result.Close()
-
-	var podiums int
-	result.Next()
-	err = result.Scan(&podiums)
-	util.CheckErr(err)
-
-	return podiums
-}
-
-func GetPoints(id int) float32 {
-	conn := Connect()
-	result, err := conn.db.Query(fmt.Sprintf(
-		"select points from driver where id=%d",
-		id,
-	))
-
-	util.CheckErr(err)
-	defer result.Close()
-
-	var points float32
-	result.Next()
-	err = result.Scan(&points)
-	util.CheckErr(err)
-
-	return points
+	return driver
 }

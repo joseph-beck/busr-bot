@@ -26,9 +26,10 @@ func WeekendPrimitive(id int) racing.RaceWeekendPrimitive {
 func CheckWeekend(id int) bool {
 	conn := Connect()
 	err := conn.db.QueryRow(fmt.Sprintf(
-		"select id from race_weekend where id=%d",
-		id)).Scan(&id)
-	fmt.Println(id)
+		"select id from race_weekend where id=%d;",
+		id),
+	).Scan(&id)
+
 	exists, err := util.CheckRow(err)
 	util.CheckErr(err)
 
