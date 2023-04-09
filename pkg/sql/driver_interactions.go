@@ -1,7 +1,6 @@
 package sql
 
 import (
-	"bot/pkg/f1"
 	"bot/pkg/racing"
 	"bot/pkg/util"
 	"fmt"
@@ -25,7 +24,7 @@ func Driver(id int) racing.Driver {
 	return driver
 }
 
-func AddDriver(driver *f1.Driver) {
+func AddDriver(driver *racing.Driver) {
 	// conn := Connect()
 	// insert, err := conn.db.Query(fmt.Sprintf(
 	// 	`insert into driver(id, name, university, wins, poles, podiums, starts, points, avg_quali)
@@ -37,7 +36,7 @@ func AddDriver(driver *f1.Driver) {
 	// defer insert.Close()
 }
 
-func UpdateDriver(driver *f1.Driver) {
+func UpdateDriver(driver *racing.Driver) {
 	// conn := Connect()
 	// updates := driver.UpdateStr()
 
