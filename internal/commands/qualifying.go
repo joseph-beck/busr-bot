@@ -2,10 +2,8 @@ package commands
 
 import (
 	"bot/internal/racing"
-	"bot/internal/sql"
 	"bot/pkg/util"
 	"fmt"
-	"log"
 	"strconv"
 
 	"github.com/bwmarrin/discordgo"
@@ -28,9 +26,9 @@ func qualifying(s *discordgo.Session, i *discordgo.InteractionCreate) {
 	util.CheckErrMsg(err, "Conversion error occurred converted User Id: "+user.ID)
 	qualiResultId := racing.GenQualiId(series, race, season, year)
 
-	log.Println(qualiResultId)
-	if sql.CheckQualifyingResult(qualiResultId, userId) {
-		qualiResult := sql.QualifyingResult(qualiResultId, userId)
+	c := getDatabase()
+	if c.Conn.CheckQualifyingResult(qualiResultId, userId) {
+		qualiResult := c.Conn.QualifyingResult(qualiResultId, userId)
 		msg := fmt.Sprintf(
 			">>> **Qualifying result for %s**: \n%s",
 			user.Username,

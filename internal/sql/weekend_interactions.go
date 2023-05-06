@@ -6,9 +6,11 @@ import (
 	"fmt"
 )
 
-func WeekendPrimitive(id int) racing.RaceWeekendPrimitive {
-	conn := Connect()
-	result, err := conn.db.Queryx(fmt.Sprintf(
+func (d *Conn) WeekendPrimitive(id int) racing.RaceWeekendPrimitive {
+	d.DbMu.Lock()
+	defer d.DbMu.Unlock()
+
+	result, err := d.Db.Queryx(fmt.Sprintf(
 		"select * from race_weekend where id=%d;",
 		id,
 	))
@@ -23,9 +25,11 @@ func WeekendPrimitive(id int) racing.RaceWeekendPrimitive {
 	return weekend
 }
 
-func CheckWeekend(id int) bool {
-	conn := Connect()
-	err := conn.db.QueryRow(fmt.Sprintf(
+func (d *Conn) CheckWeekend(id int) bool {
+	d.DbMu.Lock()
+	defer d.DbMu.Unlock()
+
+	err := d.Db.QueryRow(fmt.Sprintf(
 		"select id from race_weekend where id=%d;",
 		id),
 	).Scan(&id)

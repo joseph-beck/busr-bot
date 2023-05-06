@@ -1,7 +1,6 @@
 package commands
 
 import (
-	"bot/internal/sql"
 	"bot/pkg/util"
 	"fmt"
 	"strconv"
@@ -15,12 +14,13 @@ func driver(s *discordgo.Session, i *discordgo.InteractionCreate) {
 		respond(s, i, invalidTarget, true)
 		return
 	}
-
+	
 	userId, err := strconv.Atoi(user.ID)
 	util.CheckErrMsg(err, "Conversion error occurred converted User Id: "+user.ID)
-
-	if sql.CheckDriver(userId) {
-		driver := sql.Driver(userId)
+	
+	c := getDatabase()
+	if c.Conn.CheckDriver(userId) {
+		driver := c.Conn.Driver(userId)
 		msg := fmt.Sprintf(
 			">>>  Driver: %s\n University: %s",
 			user.Username,

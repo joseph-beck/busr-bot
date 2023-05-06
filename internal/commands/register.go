@@ -1,6 +1,7 @@
 package commands
 
 import (
+	"bot/internal/sql"
 	"bot/pkg/util"
 	"fmt"
 	"log"
@@ -19,7 +20,7 @@ func RegisterCommands(s *discordgo.Session) {
 		log.Printf(" - /%s", cmd.Name)
 	}
 
-	s.AddHandler(func(s *discordgo.Session, i *discordgo.InteractionCreate) {
+	s.AddHandler(func(s *discordgo.Session, i *discordgo.InteractionCreate, db *sql.Conn) {
 		if i.Type == discordgo.InteractionApplicationCommand {
 			h, exists := cmdHandlers[i.ApplicationCommandData().Name]
 			if exists {

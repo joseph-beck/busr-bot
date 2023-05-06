@@ -5,9 +5,11 @@ import (
 	"fmt"
 )
 
-func GetWins(id int) int {
-	conn := Connect()
-	result, err := conn.db.Query(fmt.Sprintf(
+func (d *Conn) GetWins(id int) int {
+	d.DbMu.Lock()
+	defer d.DbMu.Unlock()
+
+	result, err := d.Db.Query(fmt.Sprintf(
 		"select wins from driver where id=%d",
 		id,
 	))
@@ -23,9 +25,11 @@ func GetWins(id int) int {
 	return wins
 }
 
-func GetPodiums(id int) int {
-	conn := Connect()
-	result, err := conn.db.Query(fmt.Sprintf(
+func (d *Conn) GetPodiums(id int) int {
+	d.DbMu.Lock()
+	defer d.DbMu.Unlock()
+
+	result, err := d.Db.Query(fmt.Sprintf(
 		"select podiums from driver where id=%d",
 		id,
 	))
@@ -41,9 +45,11 @@ func GetPodiums(id int) int {
 	return podiums
 }
 
-func GetPoints(id int) float32 {
-	conn := Connect()
-	result, err := conn.db.Query(fmt.Sprintf(
+func (d *Conn) GetPoints(id int) float32 {
+	d.DbMu.Lock()
+	defer d.DbMu.Unlock()
+
+	result, err := d.Db.Query(fmt.Sprintf(
 		"select points from driver where id=%d;",
 		id,
 	))

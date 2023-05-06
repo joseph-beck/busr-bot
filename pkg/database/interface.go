@@ -10,9 +10,11 @@ type Interface struct {
 	Connection string
 }
 
-func getRecord(selection string, table string, query string) *sqlx.Rows {
-	conn := Connect()
-	result, err := conn.db.Queryx(fmt.Sprintf(
+func (c *conn) getRecord(selection string, table string, query string) *sqlx.Rows {
+	c.dbMu.Lock()
+	defer c.dbMu.Unlock()
+
+	result, err := c.db.Queryx(fmt.Sprintf(
 		"select %s from %s where %s;",
 		selection,
 		table,
@@ -28,9 +30,11 @@ func getRecord(selection string, table string, query string) *sqlx.Rows {
 	return result
 }
 
-func getRecords(table string, query string) [][]string {
-	conn := Connect()
-	record, err := conn.db.Query(fmt.Sprintf(
+func (c *conn) getRecords(table string, query string) [][]string {
+	c.dbMu.Lock()
+	defer c.dbMu.Unlock()
+
+	record, err := c.db.Query(fmt.Sprintf(
 		"select * from %s where %s;",
 		table,
 		query,
@@ -44,9 +48,11 @@ func getRecords(table string, query string) [][]string {
 	return nil
 }
 
-func getTable(table string) [][]string {
-	conn := Connect()
-	record, err := conn.db.Query(fmt.Sprintf(
+func (c *conn) getTable(table string) [][]string {
+	c.dbMu.Lock()
+	defer c.dbMu.Unlock()
+
+	record, err := c.db.Query(fmt.Sprintf(
 		"select * from %s;",
 		table,
 	))
@@ -59,9 +65,11 @@ func getTable(table string) [][]string {
 	return nil
 }
 
-func insertRecord(query string) {
-	conn := Connect()
-	insert, err := conn.db.Query(query)
+func (c *conn) insertRecord(query string) {
+	c.dbMu.Lock()
+	defer c.dbMu.Unlock()
+
+	insert, err := c.db.Query(query)
 
 	if err != nil {
 		panic(err.Error())
@@ -69,11 +77,12 @@ func insertRecord(query string) {
 	defer insert.Close()
 }
 
-func insertRecords(queries []string) {
-	conn := Connect()
+func (c *conn) insertRecords(queries []string) {
+	c.dbMu.Lock()
+	defer c.dbMu.Unlock()
 
 	for _, query := range queries {
-		insert, err := conn.db.Query(query)
+		insert, err := c.db.Query(query)
 
 		if err != nil {
 			panic(err.Error())
@@ -82,9 +91,11 @@ func insertRecords(queries []string) {
 	}
 }
 
-func updateRecord(table string, updates string, query string) {
-	conn := Connect()
-	update, err := conn.db.Query(fmt.Sprintf(
+func (c *conn) updateRecord(table string, updates string, query string) {
+	c.dbMu.Lock()
+	defer c.dbMu.Unlock()
+
+	update, err := c.db.Query(fmt.Sprintf(
 		`update %s
 		set %s
 		where %s;`,
@@ -99,10 +110,12 @@ func updateRecord(table string, updates string, query string) {
 	defer update.Close()
 }
 
-func updateRecords(table string, updates []string, queries []string) {
-	conn := Connect()
+func (c *conn) updateRecords(table string, updates []string, queries []string) {
+	c.dbMu.Lock()
+	defer c.dbMu.Unlock()
+
 	for index, element := range updates {
-		update, err := conn.db.Query(fmt.Sprintf(
+		update, err := c.db.Query(fmt.Sprintf(
 			`update %s
 			set %s
 			where %s;`,
@@ -118,9 +131,11 @@ func updateRecords(table string, updates []string, queries []string) {
 	}
 }
 
-func deleteRecord(table string, query string) {
-	conn := Connect()
-	delete, err := conn.db.Query(fmt.Sprintf(
+func (c *conn) deleteRecord(table string, query string) {
+	c.dbMu.Lock()
+	defer c.dbMu.Unlock()
+
+	delete, err := c.db.Query(fmt.Sprintf(
 		"delete from %s where %s;",
 		table,
 		query,
@@ -132,14 +147,16 @@ func deleteRecord(table string, query string) {
 	defer delete.Close()
 }
 
-func deleteRecords(table string, query string, records []string) { // TODO fix that
+func (c *conn) deleteRecords(table string, query string, records []string) { // TODO fix that
 	query += records[0]
 	for i := 1; i < len(records); i++ {
 		query += ", " + records[i]
 	}
 
-	conn := Connect()
-	delete, err := conn.db.Query(fmt.Sprintf(
+	c.dbMu.Lock()
+	defer c.dbMu.Unlock()
+
+	delete, err := c.db.Query(fmt.Sprintf(
 		"delete from %s where %s;",
 		table,
 		query,
@@ -151,9 +168,11 @@ func deleteRecords(table string, query string, records []string) { // TODO fix t
 	defer delete.Close()
 }
 
-func deleteTable(table string) {
-	conn := Connect()
-	delete, err := conn.db.Query(fmt.Sprintf(
+func (c *conn) deleteTable(table string) {
+	c.dbMu.Lock()
+	defer c.dbMu.Unlock()
+
+	delete, err := c.db.Query(fmt.Sprintf(
 		"drop table %s;",
 		table,
 	))
@@ -164,11 +183,12 @@ func deleteTable(table string) {
 	defer delete.Close()
 }
 
-func deleteTables(tables []string) {
-	conn := Connect()
+func (c *conn) deleteTables(tables []string) {
+	c.dbMu.Lock()
+	defer c.dbMu.Unlock()
 
 	for _, element := range tables {
-		delete, err := conn.db.Query(fmt.Sprintf(
+		delete, err := c.db.Query(fmt.Sprintf(
 			"drop table %s;",
 			element,
 		))

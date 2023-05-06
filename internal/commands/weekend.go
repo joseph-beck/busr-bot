@@ -2,7 +2,6 @@ package commands
 
 import (
 	"bot/internal/racing"
-	"bot/internal/sql"
 	"bot/pkg/util"
 	"fmt"
 	"strconv"
@@ -27,25 +26,26 @@ func weekend(s *discordgo.Session, i *discordgo.InteractionCreate) {
 	util.CheckErrMsg(err, "Conversion error occurred converted User Id: "+user.ID)
 	weekendId := racing.GenWeekendId(series, race, season, year)
 
-	if sql.CheckWeekend(weekendId) {
-		weekend := sql.WeekendPrimitive(weekendId)
+	c := getDatabase()
+	if c.Conn.CheckWeekend(weekendId) {
+		weekend := c.Conn.WeekendPrimitive(weekendId)
 		msg := fmt.Sprintf(
 			">>> **%s's race weekend**\n",
 			user.Username,
 		)
 
-		if sql.CheckQualifyingResult(weekend.Qualifying, userId) {
-			qualifyingResult := sql.QualifyingResult(weekend.Qualifying, userId)
+		if c.Conn.CheckQualifyingResult(weekend.Qualifying, userId) {
+			qualifyingResult := c.Conn.QualifyingResult(weekend.Qualifying, userId)
 			msg += "\n **Qualifying**: " + qualifyingResult.Out()
 		}
 
-		if sql.CheckSprintResult(weekend.Sprint, userId) {
-			sprintResult := sql.SprintResult(weekend.Sprint, userId)
+		if c.Conn.CheckSprintResult(weekend.Sprint, userId) {
+			sprintResult := c.Conn.SprintResult(weekend.Sprint, userId)
 			msg += "\n **Sprint**: " + sprintResult.Out()
 		}
 
-		if sql.CheckRaceResult(weekend.Race, userId) {
-			raceResult := sql.RaceResult(weekend.Race, userId)
+		if c.Conn.CheckRaceResult(weekend.Race, userId) {
+			raceResult := c.Conn.RaceResult(weekend.Race, userId)
 			msg += "\n **Race**: " + raceResult.Out()
 		}
 

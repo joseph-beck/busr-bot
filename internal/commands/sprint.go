@@ -2,7 +2,6 @@ package commands
 
 import (
 	"bot/internal/racing"
-	"bot/internal/sql"
 	"bot/pkg/util"
 	"fmt"
 	"strconv"
@@ -26,8 +25,9 @@ func sprint(s *discordgo.Session, i *discordgo.InteractionCreate) {
 	util.CheckErrMsg(err, "Conversion error occurred converted User Id: "+user.ID)
 	raceResultId := racing.GenSprintId(series, race, season, year)
 
-	if sql.CheckSprintResult(raceResultId, userId) {
-		raceResult := sql.SprintResult(raceResultId, userId)
+	c := getDatabase()
+	if c.Conn.CheckSprintResult(raceResultId, userId) {
+		raceResult := c.Conn.SprintResult(raceResultId, userId)
 		msg := fmt.Sprintf(
 			">>> **Sprint result for %s**: \n%s",
 			user.Username,

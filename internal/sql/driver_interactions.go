@@ -6,9 +6,11 @@ import (
 	"fmt"
 )
 
-func Driver(id int) racing.Driver {
-	conn := Connect()
-	result, err := conn.db.Queryx(fmt.Sprintf(
+func (d *Conn) Driver(id int) racing.Driver {
+	d.DbMu.Lock()
+	defer d.DbMu.Unlock()
+
+	result, err := d.Db.Queryx(fmt.Sprintf(
 		"select * from drivers where id=%d;",
 		id,
 	))
@@ -24,7 +26,7 @@ func Driver(id int) racing.Driver {
 	return driver
 }
 
-func AddDriver(driver *racing.Driver) {
+func (d *Conn) AddDriver(driver *racing.Driver) {
 	// conn := Connect()
 	// insert, err := conn.db.Query(fmt.Sprintf(
 	// 	`insert into driver(id, name, university, wins, poles, podiums, starts, points, avg_quali)
@@ -36,7 +38,7 @@ func AddDriver(driver *racing.Driver) {
 	// defer insert.Close()
 }
 
-func UpdateDriver(driver *racing.Driver) {
+func (d *Conn) UpdateDriver(driver *racing.Driver) {
 	// conn := Connect()
 	// updates := driver.UpdateStr()
 
@@ -56,9 +58,11 @@ func UpdateDriver(driver *racing.Driver) {
 	// defer update.Close()
 }
 
-func CheckDriver(id int) bool {
-	conn := Connect()
-	err := conn.db.QueryRow(fmt.Sprintf(
+func (d *Conn) CheckDriver(id int) bool {
+	d.DbMu.Lock()
+	defer d.DbMu.Unlock()
+
+	err := d.Db.QueryRow(fmt.Sprintf(
 		"select id from drivers where id=%d;",
 		id),
 	).Scan(&id)

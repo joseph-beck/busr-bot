@@ -6,10 +6,10 @@ import (
 	"fmt"
 )
 
-func QualifyingResult(i int, d int) racing.QualifyingResult {
-	resultPrimitive := QualifyingResultPrimitive(i, d)
+func (d *Conn) QualifyingResult(id int, drvr int) racing.QualifyingResult {
+	resultPrimitive := d.QualifyingResultPrimitive(id, drvr)
 
-	driver := Driver(resultPrimitive.Driver)
+	driver := d.Driver(resultPrimitive.Driver)
 	time := racing.Time{
 		Minutes:      resultPrimitive.Minutes,
 		Seconds:      resultPrimitive.Seconds,
@@ -17,7 +17,7 @@ func QualifyingResult(i int, d int) racing.QualifyingResult {
 	}
 
 	return racing.QualifyingResult{
-		Id:       i,
+		Id:       id,
 		Driver:   driver,
 		Position: resultPrimitive.Position,
 		Time:     time,
@@ -25,9 +25,11 @@ func QualifyingResult(i int, d int) racing.QualifyingResult {
 	}
 }
 
-func QualifyingResultPrimitive(id int, driver int) racing.QualifyingResultPrimitive {
-	conn := Connect()
-	result, err := conn.db.Queryx(fmt.Sprintf(
+func (d *Conn) QualifyingResultPrimitive(id int, driver int) racing.QualifyingResultPrimitive {
+	d.DbMu.Lock()
+	defer d.DbMu.Unlock()
+
+	result, err := d.Db.Queryx(fmt.Sprintf(
 		"select * from qualifying_result where id=%d and driver=%d;",
 		id, driver,
 	))
@@ -43,7 +45,7 @@ func QualifyingResultPrimitive(id int, driver int) racing.QualifyingResultPrimit
 	return results
 }
 
-func AddQualifying(race *racing.QualifyingResult) {
+func (d *Conn) AddQualifying(race *racing.QualifyingResult) {
 	// conn := Connect()
 	// insert, err := conn.db.Query(fmt.Sprintf(
 	// 	`insert into quali(id, )
@@ -55,9 +57,11 @@ func AddQualifying(race *racing.QualifyingResult) {
 	// defer insert.Close()
 }
 
-func CheckQualifyingResult(id int, driver int) bool {
-	conn := Connect()
-	err := conn.db.QueryRow(fmt.Sprintf(
+func (d *Conn) CheckQualifyingResult(id int, driver int) bool {
+	d.DbMu.Lock()
+	defer d.DbMu.Unlock()
+
+	err := d.Db.QueryRow(fmt.Sprintf(
 		"select id from qualifying_result where id=%d and driver=%d;",
 		id, driver),
 	).Scan(&id)

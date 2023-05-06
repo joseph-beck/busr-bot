@@ -6,10 +6,10 @@ import (
 	"fmt"
 )
 
-func SprintResult(i int, d int) racing.SprintResult {
-	resultPrimitive := SprintResultPrimitive(i, d)
+func (d *Conn) SprintResult(id int, drvr int) racing.SprintResult {
+	resultPrimitive := d.SprintResultPrimitive(id, drvr)
 
-	driver := Driver(resultPrimitive.Driver)
+	driver := d.Driver(resultPrimitive.Driver)
 	time := racing.Time{
 		Minutes:      resultPrimitive.Minutes,
 		Seconds:      resultPrimitive.Seconds,
@@ -17,7 +17,7 @@ func SprintResult(i int, d int) racing.SprintResult {
 	}
 
 	return racing.SprintResult{
-		Id:       i,
+		Id:       id,
 		Driver:   driver,
 		Position: resultPrimitive.Position,
 		Time:     time,
@@ -25,9 +25,11 @@ func SprintResult(i int, d int) racing.SprintResult {
 	}
 }
 
-func SprintResultPrimitive(id int, driver int) racing.SprintResultPrimitive {
-	conn := Connect()
-	result, err := conn.db.Queryx(fmt.Sprintf(
+func (d *Conn) SprintResultPrimitive(id int, driver int) racing.SprintResultPrimitive {
+	d.DbMu.Lock()
+	defer d.DbMu.Unlock()
+
+	result, err := d.Db.Queryx(fmt.Sprintf(
 		"select * from sprint_result where id=%d and driver=%d;",
 		id, driver,
 	))
@@ -43,9 +45,11 @@ func SprintResultPrimitive(id int, driver int) racing.SprintResultPrimitive {
 	return results
 }
 
-func CheckSprintResult(id int, driver int) bool {
-	conn := Connect()
-	err := conn.db.QueryRow(fmt.Sprintf(
+func (d *Conn) CheckSprintResult(id int, driver int) bool {
+	d.DbMu.Lock()
+	defer d.DbMu.Unlock()
+
+	err := d.Db.QueryRow(fmt.Sprintf(
 		"select id from sprint_result where id=%d and driver=%d;",
 		id, driver),
 	).Scan(&id)

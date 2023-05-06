@@ -1,49 +1,26 @@
 package sql
 
 import (
-	"bot/pkg/util"
-	"log"
+	d "bot/pkg/database"
 	"sync"
 
 	"github.com/jmoiron/sqlx"
-
-	_ "github.com/go-sql-driver/mysql"
 )
 
-var lock = &sync.Mutex{}
-
 type Conn struct {
-	db sqlx.DB
+	DbMu sync.Mutex
+	Db   sqlx.DB
 }
 
-var instance *Conn
-
-func Connect() *Conn {
-	if instance == nil {
-		lock.Lock()
-		defer lock.Unlock()
-
-		instance = &Conn{connDb()}
-	}
-
-	return instance
-}
-
-func Disconnect() {
-	if instance != nil {
-		closeDb(&instance.db)
+func MakeConn() *Conn {
+	return &Conn{
+		Db: d.ConnDbx(),
 	}
 }
 
-func connDb() sqlx.DB {
-	db, err := sqlx.Open("mysql", connStr())
-	util.CheckErrMsg(err, "SQL connection failure")
-	log.Println("Database connected")
+func (d *Conn) Close() {
+	d.DbMu.Lock()
+	defer d.DbMu.Unlock()
 
-	return *db
-}
-
-func closeDb(db *sqlx.DB) {
-	defer db.Close()
-	log.Println("Database disconnecting")
+	defer d.Db.Close()
 }
