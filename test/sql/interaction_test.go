@@ -1,7 +1,7 @@
 package sql
 
 import (
-	"bot/internal/sql"
+	"bot/internal/database"
 	"testing"
 
 	"github.com/stretchr/testify/assert"

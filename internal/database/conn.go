@@ -1,7 +1,7 @@
 package sql
 
 import (
-	d "bot/pkg/database"
+	s "bot/pkg/sql"
 	"sync"
 
 	"github.com/jmoiron/sqlx"
@@ -14,7 +14,7 @@ type Conn struct {
 
 func MakeConn(path string) *Conn {
 	return &Conn{
-		Db: d.ConnDbx(path),
+		Db: s.ConnDbx(path),
 	}
 }
 

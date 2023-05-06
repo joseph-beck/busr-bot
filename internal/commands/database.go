@@ -1,7 +1,7 @@
 package commands
 
 import (
-	"bot/internal/sql"
+	"bot/internal/database"
 	"sync"
 )
 
