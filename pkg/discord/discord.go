@@ -1,7 +1,7 @@
 package discord
 
 import (
-	"bot/pkg/commands"
+	"bot/internal/commands"
 	"bot/pkg/util"
 	"log"
 	"os"

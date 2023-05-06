@@ -1,8 +1,8 @@
 package commands
 
 import (
-	"bot/pkg/racing"
-	"bot/pkg/sql"
+	"bot/internal/racing"
+	"bot/internal/sql"
 	"bot/pkg/util"
 	"fmt"
 	"log"

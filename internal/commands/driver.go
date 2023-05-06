@@ -1,7 +1,7 @@
 package commands
 
 import (
-	"bot/pkg/sql"
+	"bot/internal/sql"
 	"bot/pkg/util"
 	"fmt"
 	"strconv"

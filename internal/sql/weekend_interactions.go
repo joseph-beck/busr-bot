@@ -1,7 +1,7 @@
 package sql
 
 import (
-	"bot/pkg/racing"
+	"bot/internal/racing"
 	"bot/pkg/util"
 	"fmt"
 )

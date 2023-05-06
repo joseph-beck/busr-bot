@@ -1,1 +1,0 @@
-go run cmd/botdisc/main.go

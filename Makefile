@@ -1,10 +1,16 @@
-.PHONY: cli bot testc
+.PHONY: dev
 
-cli: 
-	@./scripts/run-cli.sh
+dev: 
+	@./scripts/dev.sh
 
-test:
-	@./scripts/run-test.sh
+.PHONY: bot
 
 bot: 
-	@./scripts/run-bot.sh
+	@./scripts/bot.sh
+
+.PHONY: test
+
+test:
+	go clean -testcache 
+	go mod tidy
+	go test -cover ./test/...
