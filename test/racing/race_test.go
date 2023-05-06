@@ -1,1 +1,7 @@
 package racing
+
+import "testing"
+
+func TestRace(t *testing.T) {
+
+}

@@ -2,6 +2,6 @@ package racing
 
 import "testing"
 
-func TestGenerator(t *testing.T) {
+func TestWeekend(t *testing.T) {
 
 }
