@@ -5,6 +5,8 @@ import (
 	"sync"
 )
 
+const path = "configs/database.json"
+
 var lock = &sync.Mutex{}
 
 type database struct {
@@ -19,7 +21,7 @@ func getDatabase() *database {
 
 	if instance == nil {
 		instance = &database{
-			Conn: *sql.MakeConn(),
+			Conn: *sql.MakeConn(path),
 		}
 	}
 

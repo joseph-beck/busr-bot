@@ -12,9 +12,9 @@ type Conn struct {
 	Db   sqlx.DB
 }
 
-func MakeConn() *Conn {
+func MakeConn(path string) *Conn {
 	return &Conn{
-		Db: d.ConnDbx(),
+		Db: d.ConnDbx(path),
 	}
 }
 

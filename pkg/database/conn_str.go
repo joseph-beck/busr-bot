@@ -15,8 +15,8 @@ type connData struct {
 	Database string
 }
 
-func connStr() string {
-	content, err := os.ReadFile("configs/database.json")
+func connStr(path string) string {
+	content, err := os.ReadFile(path)
 	util.CheckErrMsg(err, "Error opening file: ")
 
 	cd := connData{}

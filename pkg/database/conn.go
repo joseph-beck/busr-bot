@@ -16,9 +16,9 @@ type conn struct {
 	db   sqlx.DB
 }
 
-func MakeDb() *conn {
+func MakeDbx(path string) *conn {
 	return &conn{
-		db: ConnDbx(),
+		db: ConnDbx(path),
 	}
 }
 
@@ -29,16 +29,16 @@ func (d *conn) Close() {
 	defer d.db.Close()
 }
 
-func ConnDbx() sqlx.DB {
-	db, err := sqlx.Open("mysql", connStr())
+func ConnDbx(path string) sqlx.DB {
+	db, err := sqlx.Open("mysql", connStr(path))
 	util.CheckErrMsg(err, "SQL connection failure")
 	log.Println("Database connected")
 
 	return *db
 }
 
-func ConnDb() sql.DB {
-	db, err := sql.Open("mysql", connStr())
+func ConnDb(path string) sql.DB {
+	db, err := sql.Open("mysql", connStr(path))
 	util.CheckErrMsg(err, "SQL connection failure")
 	log.Println("Database connected")
 
