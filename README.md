@@ -6,8 +6,10 @@ a bot for getting driver stats
 
 - go
 - mysql
-- ?
+- ...
 
 ## dependencies
 
-- sqlx
+- mysql driver
+- sql & sqlx
+- discord go
