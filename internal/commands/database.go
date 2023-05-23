@@ -9,19 +9,19 @@ const path = "configs/database.json"
 
 var lock = &sync.Mutex{}
 
-type database struct {
-	Conn sql.Conn
+type db struct {
+	Conn database.Conn
 }
 
-var instance *database
+var instance *db
 
-func getDatabase() *database {
+func getDatabase() *db {
 	lock.Lock()
 	defer lock.Unlock()
 
 	if instance == nil {
-		instance = &database{
-			Conn: *sql.MakeConn(path),
+		instance = &db{
+			Conn: *database.MakeConn(path),
 		}
 	}
 
