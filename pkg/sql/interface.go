@@ -48,6 +48,10 @@ func (c *conn) getRecords(table string, query string) [][]string {
 	return nil
 }
 
+func (c *conn) getStruct(s interface{}, table string) {
+
+}
+
 func (c *conn) getTable(table string) [][]string {
 	c.dbMu.Lock()
 	defer c.dbMu.Unlock()
@@ -91,6 +95,10 @@ func (c *conn) insertRecords(queries []string) {
 	}
 }
 
+func (c *conn) insertStruct(s interface{}, table string) {
+
+}
+
 func (c *conn) updateRecord(table string, updates string, query string) {
 	c.dbMu.Lock()
 	defer c.dbMu.Unlock()
@@ -131,6 +139,10 @@ func (c *conn) updateRecords(table string, updates []string, queries []string) {
 	}
 }
 
+func (c *conn) updateStruct(s interface{}, table string) {
+
+}
+
 func (c *conn) deleteRecord(table string, query string) {
 	c.dbMu.Lock()
 	defer c.dbMu.Unlock()
@@ -166,6 +178,10 @@ func (c *conn) deleteRecords(table string, query string, records []string) { // 
 		panic(err.Error())
 	}
 	defer delete.Close()
+}
+
+func (c *conn) deleteStruct(s interface{}, table string) {
+	
 }
 
 func (c *conn) deleteTable(table string) {
