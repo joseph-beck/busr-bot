@@ -28,4 +28,4 @@ test:
 .PHONY: deploy
 deploy:
 	docker build --tag busr-bot .
-	docker run busr-bot &
+	docker run -rm busr-bot &
