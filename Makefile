@@ -27,4 +27,5 @@ test:
 
 .PHONY: deploy
 deploy:
-	docker build --tag docker-gs-ping .
+	docker build --tag busr-bot .
+	docker run busr-bot &

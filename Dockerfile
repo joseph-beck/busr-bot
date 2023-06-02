@@ -1,15 +1,14 @@
 FROM golang
 
-WORKDIR /
+WORKDIR /app
 
 COPY go.mod go.sum ./
 RUN go mod download
 
-COPY *.go ./
-COPY *.json ./
+ADD . ./
 
-RUN CGO_ENABLED=0 GOOS=linux go build -o /docker-gs-ping
+RUN make build
 
 EXPOSE 8080
 
-CMD ["/docker-gs-ping"]
+CMD ["/app/build/program/app"]
